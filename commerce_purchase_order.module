@@ -38,7 +38,7 @@ function commerce_purchase_order_validate_access($order, $transaction) {
   }
   else {
     // Allow access if the user can update payments on this order.
-    return commerce_payment_transaction_access('update', $order, $transaction);
+    return commerce_payment_transaction_access('update', $transaction);
   }
 }
 
