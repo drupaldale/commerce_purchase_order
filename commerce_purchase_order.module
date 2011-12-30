@@ -32,13 +32,13 @@ function commerce_purchase_order_menu() {
  * User access callback for purchase order number validation
  */
 function commerce_purchase_order_validate_access($order, $transaction) {
-  // Return FALSE if the transaction isn't with a Purchase Order
-  if ($transaction->payment_method != 'commerce_purchase_order' && $transaction->status == COMMERCE_PAYMENT_STATUS_PENDING) {
-    return FALSE;
-  }
-  else {
+  if ($transaction->payment_method == 'commerce_purchase_order' && $transaction->status == COMMERCE_PAYMENT_STATUS_PENDING) {
     // Allow access if the user can update payments on this order.
     return commerce_payment_transaction_access('update', $transaction);
+  }
+  // Return FALSE if the transaction isn't with a Purchase Order
+  else {
+    return FALSE;
   }
 }
 
