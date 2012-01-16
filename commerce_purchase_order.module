@@ -52,16 +52,24 @@ function commerce_purchase_order_validate_form($form, &$form_state, $order, $tra
   // Load and store the payment method instance for this transaction.
   $payment_method = commerce_payment_method_instance_load($transaction->instance_id);
   $form_state['payment_method'] = $payment_method;
-  
+
   $form['information'] = array(
     '#markup' => t('Validating the transaction means that the PO number was verified. This will mark the transaction as successful').'<br />'
   );
-  
-  $form['submit'] = array(
+
+  $form['actions'] = array('#type' => 'actions');
+
+  $form['actions']['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Validate')
   );
-  
+
+  // Cancel link in case they'd like to validate another time.
+  $form['actions']['cancel'] = array(
+    '#markup' => l(t('Cancel'), 'admin/commerce/orders/' . $order->order_id . '/payment', array('absolute' => TRUE)),
+  );
+
+
   return $form;
 }
 
