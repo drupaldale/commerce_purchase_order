@@ -1,6 +1,16 @@
 <?php
 
 /**
+ * Implements hook_install().
+ */
+function commerce_purchase_order_install(){
+  // Remind user to set validation settings.
+  $settings_url = url('admin/commerce/config/payment-methods/manage/commerce_payment_commerce_purchase_order/edit/3', array('absolute' => TRUE));
+  drupal_set_message(t('Thank you for installing commerce purchase order, kindly set the purchase order by visiting <a href="@settings">purchase order settings</a>.', array('@settings' => $settings_url)), 'status', FALSE);
+}
+
+
+/**
  * Implements hook_schema().
  */
 function commerce_purchase_order_schema() {
