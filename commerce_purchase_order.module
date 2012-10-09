@@ -102,6 +102,12 @@ function commerce_purchase_order_commerce_payment_method_info() {
 function commerce_purchase_order_settings_form($settings = NULL) {
   $form = array();
 
+  $default_value = '';
+
+  if (!is_null($settings)) {
+    $default_value = $settings['commerce_purchase_order_instructions'];
+  }
+
   $form['commerce_purchase_order_length'] = array(
     '#type' => 'textfield',
     '#title' => t('Purchase order number length'),
@@ -110,6 +116,14 @@ function commerce_purchase_order_settings_form($settings = NULL) {
     '#default_value' => 6,
     '#required' => TRUE,
   );
+
+  $form['commerce_purchase_order_instructions'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Instructions'),
+    '#description' => t('The instructions the customer sees when checking out.'),
+    '#default_value' => $default_value,
+  );
+
   return $form;
 
 }
@@ -119,6 +133,7 @@ function commerce_purchase_order_settings_form($settings = NULL) {
  */
 function commerce_purchase_order_submit_form($payment_method, $pane_values, $checkout_pane, $order) {
   $form = array();
+  $settings = $payment_method['settings'];
 
   // Merge in values from the order.
   if (!empty($order->data['commerce_purchase_order'])) {
@@ -133,7 +148,7 @@ function commerce_purchase_order_submit_form($payment_method, $pane_values, $che
   $form['po_number'] = array(
     '#type' => 'textfield',
     '#title' => t('Purchase Order'),
-    '#description' => t('Enter your purchase order number in this field.'),
+    '#description' => $settings['commerce_purchase_order_instructions'],
     '#default_value' => $pane_values['po_number'],
     '#required' => TRUE,
   );
