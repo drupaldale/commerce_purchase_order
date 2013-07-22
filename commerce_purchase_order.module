@@ -101,31 +101,21 @@ function commerce_purchase_order_commerce_payment_method_info() {
  */
 function commerce_purchase_order_settings_form($settings = NULL) {
   $form = array();
-
-  $default_value = '';
-
-  if (!is_null($settings)) {
-    $default_value = $settings['commerce_purchase_order_instructions'];
-  }
-
   $form['commerce_purchase_order_length'] = array(
     '#type' => 'textfield',
     '#title' => t('Purchase order number length'),
     '#size' => 4,
     '#description' => t('The required length of the purchase order number, set to 0 for no length requirement.'),
-    '#default_value' => 6,
+    '#default_value' => isset($settings['commerce_purchase_order_length']) ? $settings['commerce_purchase_order_length'] : 6,
     '#required' => TRUE,
   );
-
   $form['commerce_purchase_order_instructions'] = array(
     '#type' => 'textarea',
     '#title' => t('Instructions'),
     '#description' => t('The instructions the customer sees when checking out.'),
-    '#default_value' => $default_value,
+    '#default_value' => isset($settings['commerce_purchase_order_instructions']) ? $settings['commerce_purchase_order_instructions'] : '',
   );
-
   return $form;
-
 }
 
 /**
