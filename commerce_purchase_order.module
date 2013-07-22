@@ -148,7 +148,7 @@ function commerce_purchase_order_submit_form($payment_method, $pane_values, $che
   $form['po_number'] = array(
     '#type' => 'textfield',
     '#title' => t('Purchase Order'),
-    '#description' => $settings['commerce_purchase_order_instructions'],
+    '#description' => isset($settings['commerce_purchase_order_instructions']) ? $settings['commerce_purchase_order_instructions'] : '',
     '#default_value' => $pane_values['po_number'],
     '#required' => TRUE,
   );
