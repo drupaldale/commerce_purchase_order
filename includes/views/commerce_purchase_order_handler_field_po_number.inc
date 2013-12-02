@@ -1,9 +1,14 @@
 <?php
 class commerce_purchase_order_handler_field_po_number extends views_handler_field {
-  function construct() {
-    parent::construct();
+  function init(&$view, &$options) {
+    parent::init($view, $options);
 
-    //$this->additional_fields['uid'] = 'uid';
+    $this->additional_fields['order_id'] = 'order_id';
+  }
+
+  function query() {
+    $this->ensure_my_table();
+    $this->add_additional_fields();
   }
 
   function render($values) {
